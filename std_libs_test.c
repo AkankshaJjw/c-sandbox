@@ -6,6 +6,8 @@
 #include <stdarg.h>
 #include <time.h>
 
+// based on lesson 10 of MIT practical programming with C
+
 /* ctype.h example - Testing characters */
 void test_characters() {
     char c;
