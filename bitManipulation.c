@@ -1,5 +1,6 @@
 #include "stdint.h"
 #include <stdio.h>
+#include <stdbool.h>
 
 // Using the #define statement, how would you declare a manifest constant that returns the number of seconds in a year? Disregard leap years in your answer.
 #define NUM_SEC_IN_YEAR (365UL*24*60*60) //this would cast the whole expression to unsigned long
@@ -8,6 +9,7 @@
 // Given an integer variable a, write two code fragments. 
 // The first should set bit 3 of a. The second should clear bit 3 of a. In both cases, the remaining bits should be unmodified.
 int reverseNumber(int num);
+bool isPowerOfTwo(int n);
 /*
 int a; // An integer
 
@@ -38,15 +40,18 @@ int main()
     a = a & ~(0x1 <<29);
     printf("a:%x\n", a);   
 
-    // On a certain project it is required to set an integer variable at the absolute address 0x67a9 to the value 0xaa55. 
-    // The compiler is a pure ANSI compiler. Write code to accomplish this task.
-    int* address = (int *)0x67a9;
-    *address = 0xaa5;
+    // // On a certain project it is required to set an integer variable at the absolute address 0x67a9 to the value 0xaa55. 
+    // // The compiler is a pure ANSI compiler. Write code to accomplish this task.
+    // int* address = (int *)0x67a9;
+    // *address = 0xaa5;
 
     unsigned int num = 0x12345678;
     printf("Original: 0x%x\n", num);
-    printf("Reversed: 0x%x\n", reverseBits(num));
-    
+    printf("Reversed: 0x%x\n", reverseNumber(num));
+
+    isPowerOfTwo(31) ? printf("Yes\n") : printf("No\n");
+    isPowerOfTwo(64) ? printf("Yes\n") : printf("No\n");
+
     return 0;
 }
 
@@ -54,9 +59,23 @@ int main()
 int reverseNumber(int num) {
     int reversedNum = 0;
     for(int i = 0; i <32; i++) {
-        reversedNum << 1;
+        reversedNum = reversedNum << 1;
         int lastDigit = num & 1;
         reversedNum |=  lastDigit;
-        num >> 1;
+        num = num >> 1;
     }
+    return reversedNum;
 }
+
+bool isPowerOfTwo(int n)
+{
+    if (n == 0)
+        return 0;
+    while (n != 1) {
+        if (n % 2 != 0)
+            return 0;
+        n = n / 2;
+    }
+    return 1;
+}
+
